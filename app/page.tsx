@@ -1,163 +1,91 @@
 "use client"
 
-import { useState } from "react"
-import { ArrowUpRight, ArrowDownLeft, History, CreditCard, Settings } from "lucide-react"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { SendMoneyFlow } from "@/components/send-money-flow"
-import { TransactionHistory } from "@/components/transaction-history"
-import { TransactionDetail } from "@/components/transaction-detail"
-import { useTransactions } from "@/hooks/use-transactions"
+import { ArrowRight, Shield, Zap, Users } from "lucide-react"
 
-export default function Dashboard() {
-  const [currentView, setCurrentView] = useState<"dashboard" | "send" | "history" | "detail">("dashboard")
-  const [selectedTransaction, setSelectedTransaction] = useState<string | null>(null)
-  const { transactions, addTransaction } = useTransactions()
+export default function LandingPage() {
+  const router = useRouter()
 
-  const handleSendMoney = () => {
-    setCurrentView("send")
+  const handleGetStarted = () => {
+    router.push("/home")
   }
-
-  const handleViewHistory = () => {
-    setCurrentView("history")
-  }
-
-  const handleTransactionComplete = (transaction: any) => {
-    addTransaction(transaction)
-    setCurrentView("dashboard")
-  }
-
-  const handleViewTransaction = (transactionId: string) => {
-    setSelectedTransaction(transactionId)
-    setCurrentView("detail")
-  }
-
-  const handleBack = () => {
-    setCurrentView("dashboard")
-    setSelectedTransaction(null)
-  }
-
-  if (currentView === "send") {
-    return <SendMoneyFlow onComplete={handleTransactionComplete} onBack={handleBack} />
-  }
-
-  if (currentView === "history") {
-    return (
-      <TransactionHistory transactions={transactions} onBack={handleBack} onViewTransaction={handleViewTransaction} />
-    )
-  }
-
-  if (currentView === "detail" && selectedTransaction) {
-    const transaction = transactions.find((t) => t.id === selectedTransaction)
-    if (transaction) {
-      return <TransactionDetail transaction={transaction} onBack={handleBack} />
-    }
-  }
-
-  const recentTransactions = transactions.slice(0, 3)
-  const balance = 2847.5
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">PayWise</h1>
-              <p className="text-sm text-gray-600">Welcome back, Alex</p>
-            </div>
-            <Button variant="ghost" size="icon">
-              <Settings className="h-5 w-5" />
-            </Button>
-          </div>
+      {/* Hero Section */}
+      <div className="max-w-md mx-auto px-4 py-12 text-center">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">PayWise</h1>
+          <p className="text-lg text-gray-600 mb-8">
+            Fast, simple, and secure peer-to-peer money transfers
+          </p>
+          <Button 
+            onClick={handleGetStarted}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
+            size="lg"
+          >
+            Get Started
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Balance Card */}
-        <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-          <CardHeader>
-            <CardTitle className="text-lg font-medium opacity-90">Available Balance</CardTitle>
+      {/* Features */}
+      <div className="max-w-md mx-auto px-4 py-6 space-y-4">
+        <Card>
+          <CardHeader className="text-center pb-4">
+            <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+              <Zap className="h-6 w-6 text-blue-600" />
+            </div>
+            <CardTitle className="text-lg">Instant Transfers</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">${balance.toFixed(2)}</div>
-            <p className="text-sm opacity-75 mt-1">Main Account</p>
+            <p className="text-center text-gray-600 text-sm">
+              Send money to friends and family instantly with just a few taps
+            </p>
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            onClick={handleSendMoney}
-            className="h-20 flex-col gap-2 bg-white text-gray-900 border border-gray-200 hover:bg-gray-50"
+        <Card>
+          <CardHeader className="text-center pb-4">
+            <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
+              <Shield className="h-6 w-6 text-green-600" />
+            </div>
+            <CardTitle className="text-lg">Secure & Safe</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-center text-gray-600 text-sm">
+              Bank-level security with end-to-end encryption for all transactions
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="text-center pb-4">
+            <div className="mx-auto w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+              <Users className="h-6 w-6 text-purple-600" />
+            </div>
+            <CardTitle className="text-lg">Easy Sharing</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-center text-gray-600 text-sm">
+              Use PayTags to send money using just a username or phone number
+            </p>
+          </CardContent>
+        </Card>
+
+        <div className="pt-6">
+          <Button 
+            onClick={handleGetStarted}
             variant="outline"
+            className="w-full"
           >
-            <ArrowUpRight className="h-6 w-6 text-blue-600" />
-            <span className="font-medium">Send Money</span>
-          </Button>
-          <Button
-            onClick={handleViewHistory}
-            className="h-20 flex-col gap-2 bg-white text-gray-900 border border-gray-200 hover:bg-gray-50"
-            variant="outline"
-          >
-            <History className="h-6 w-6 text-green-600" />
-            <span className="font-medium">History</span>
+            Start Using PayWise
           </Button>
         </div>
-
-        {/* Recent Transactions */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-lg">Recent Activity</CardTitle>
-            <Button variant="ghost" size="sm" onClick={handleViewHistory}>
-              View All
-            </Button>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {recentTransactions.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <CreditCard className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                <p>No recent transactions</p>
-                <p className="text-sm">Start by sending money to someone!</p>
-              </div>
-            ) : (
-              recentTransactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="flex items-center justify-between p-3 rounded-lg border cursor-pointer hover:bg-gray-50"
-                  onClick={() => handleViewTransaction(transaction.id)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`p-2 rounded-full ${
-                        transaction.type === "sent" ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
-                      }`}
-                    >
-                      {transaction.type === "sent" ? (
-                        <ArrowUpRight className="h-4 w-4" />
-                      ) : (
-                        <ArrowDownLeft className="h-4 w-4" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">
-                        {transaction.type === "sent" ? "To" : "From"} {transaction.recipientName}
-                      </p>
-                      <p className="text-xs text-gray-500">{transaction.payTag}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className={`font-semibold ${transaction.type === "sent" ? "text-red-600" : "text-green-600"}`}>
-                      {transaction.type === "sent" ? "-" : "+"}${transaction.amount.toFixed(2)}
-                    </p>
-                    <p className="text-xs text-gray-500">{transaction.date}</p>
-                  </div>
-                </div>
-              ))
-            )}
-          </CardContent>
-        </Card>
       </div>
     </div>
   )
