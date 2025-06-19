@@ -33,7 +33,7 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
@@ -66,10 +66,10 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
             >
               {transaction.type === "sent" ? "-" : "+"}${transaction.amount.toFixed(2)}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-neutral-600">
               {transaction.type === "sent" ? "Sent to" : "Received from"} {transaction.recipientName}
             </p>
-            <p className="text-sm text-gray-500">{transaction.payTag}</p>
+            <p className="text-sm text-neutral-500">{transaction.payTag}</p>
           </CardContent>
         </Card>
 
@@ -80,7 +80,7 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex justify-between">
-              <span className="text-gray-600">Transaction ID:</span>
+              <span className="text-neutral-600">Transaction ID:</span>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-sm">{transaction.id}</span>
                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleCopyId}>
@@ -90,23 +90,23 @@ export function TransactionDetail({ transaction, onBack }: TransactionDetailProp
             </div>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Date:</span>
+              <span className="text-neutral-600">Date:</span>
               <span>{transaction.date}</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Time:</span>
+              <span className="text-neutral-600">Time:</span>
               <span>{transaction.time}</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-gray-600">Status:</span>
+              <span className="text-neutral-600">Status:</span>
               <span className="text-green-600 font-medium capitalize">{transaction.status}</span>
             </div>
 
             {transaction.memo && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Memo:</span>
+                <span className="text-neutral-600">Memo:</span>
                 <span className="text-right max-w-48">{transaction.memo}</span>
               </div>
             )}

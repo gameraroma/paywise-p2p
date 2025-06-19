@@ -10,6 +10,38 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Web Green Theme Colors
+        'web-green': {
+          50: '#e6f6ee',
+          100: '#bcf0d8',
+          200: '#8ce9c1',
+          300: '#5ce3aa',
+          400: '#2bdb93',
+          500: '#00A950',  // Main Green
+          600: '#009947',  // Darker Green
+          700: '#00803c',
+          800: '#006630',
+          900: '#004d24',
+        },
+        // Functional Colors
+        success: '#00A950',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
+        // Neutral Colors
+        neutral: {
+          50: '#F5F7F8',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#333D47',
+          900: '#111827',
+        },
+        // Theme System Colors
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

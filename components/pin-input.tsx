@@ -70,7 +70,7 @@ export function PinInput({ onSuccess, onError, disabled }: PinInputProps) {
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}
           disabled={disabled}
-          className="w-12 h-12 text-center text-lg font-semibold"
+          className="w-12 h-12 text-center text-lg font-semibold border-neutral-300 focus:border-green-500 focus:ring-green-500 focus:ring-2 focus:ring-opacity-20"
         />
       ))}
     </div>

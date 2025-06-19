@@ -64,7 +64,7 @@ export default function HomePage() {
   const balance = 2847.5
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-web-green-50">
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-md mx-auto px-4 py-6">
@@ -74,13 +74,13 @@ export default function HomePage() {
                 variant="ghost" 
                 size="icon"
                 onClick={handleBackToMain}
-                className="hover:bg-gray-100"
+                className="hover:bg-neutral-100"
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">PayWise</h1>
-                <p className="text-sm text-gray-600">Welcome back, Alex</p>
+                <h1 className="text-2xl font-bold text-neutral-900">PayWise</h1>
+                <p className="text-sm text-neutral-600">Welcome back, Alex</p>
               </div>
             </div>
             <Button variant="ghost" size="icon">
@@ -92,7 +92,7 @@ export default function HomePage() {
 
       <div className="max-w-md mx-auto px-4 py-6 space-y-6">
         {/* Balance Card */}
-        <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <Card className="bg-gradient-to-r from-web-green-600 to-web-green-500 text-white">
           <CardHeader>
             <CardTitle className="text-lg font-medium opacity-90">Available Balance</CardTitle>
           </CardHeader>
@@ -106,18 +106,18 @@ export default function HomePage() {
         <div className="grid grid-cols-2 gap-4">
           <Button
             onClick={handleSendMoney}
-            className="h-20 flex-col gap-2 bg-white text-gray-900 border border-gray-200 hover:bg-gray-50"
+            className="h-20 flex-col gap-2 bg-white text-neutral-900 border border-neutral-200 hover:bg-web-green-50 hover:border-web-green-200"
             variant="outline"
           >
-            <ArrowUpRight className="h-6 w-6 text-blue-600" />
+            <ArrowUpRight className="h-6 w-6 text-web-green-600" />
             <span className="font-medium">Send Money</span>
           </Button>
           <Button
             onClick={handleViewHistory}
-            className="h-20 flex-col gap-2 bg-white text-gray-900 border border-gray-200 hover:bg-gray-50"
+            className="h-20 flex-col gap-2 bg-white text-neutral-900 border border-neutral-200 hover:bg-web-green-50 hover:border-web-green-200"
             variant="outline"
           >
-            <History className="h-6 w-6 text-green-600" />
+            <History className="h-6 w-6 text-web-green-600" />
             <span className="font-medium">History</span>
           </Button>
         </div>
@@ -126,13 +126,13 @@ export default function HomePage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-lg">Recent Activity</CardTitle>
-            <Button variant="ghost" size="sm" onClick={handleViewHistory}>
+            <Button variant="ghost" size="sm" onClick={handleViewHistory} className="text-web-green-600 hover:text-web-green-700 hover:bg-web-green-50">
               View All
             </Button>
           </CardHeader>
           <CardContent className="space-y-3">
             {recentTransactions.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-neutral-500">
                 <CreditCard className="h-12 w-12 mx-auto mb-3 opacity-50" />
                 <p>No recent transactions</p>
                 <p className="text-sm">Start by sending money to someone!</p>
@@ -141,13 +141,13 @@ export default function HomePage() {
               recentTransactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="flex items-center justify-between p-3 rounded-lg border cursor-pointer hover:bg-gray-50"
+                  className="flex items-center justify-between p-3 rounded-lg border cursor-pointer hover:bg-web-green-50 hover:border-web-green-200 transition-colors"
                   onClick={() => handleViewTransaction(transaction.id)}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={`p-2 rounded-full ${
-                        transaction.type === "sent" ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
+                        transaction.type === "sent" ? "bg-error/10 text-error" : "bg-web-green-100 text-web-green-600"
                       }`}
                     >
                       {transaction.type === "sent" ? (
@@ -160,14 +160,14 @@ export default function HomePage() {
                       <p className="font-medium text-sm">
                         {transaction.type === "sent" ? "To" : "From"} {transaction.recipientName}
                       </p>
-                      <p className="text-xs text-gray-500">{transaction.payTag}</p>
+                      <p className="text-xs text-neutral-500">{transaction.payTag}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className={`font-semibold ${transaction.type === "sent" ? "text-red-600" : "text-green-600"}`}>
+                    <p className={`font-semibold ${transaction.type === "sent" ? "text-error" : "text-web-green-600"}`}>
                       {transaction.type === "sent" ? "-" : "+"}${transaction.amount.toFixed(2)}
                     </p>
-                    <p className="text-xs text-gray-500">{transaction.date}</p>
+                    <p className="text-xs text-neutral-500">{transaction.date}</p>
                   </div>
                 </div>
               ))
